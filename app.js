@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 
 
-dotenv.config({path: './config.env'}); //getting all the private data
+dotenv.config({path: path.resolve(__dirname, './config.env') }); //getting all the private data
 
 require('./db/conn') //Database Connection
 
