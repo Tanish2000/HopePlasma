@@ -1,0 +1,47 @@
+.form-group{
+    display: flex;
+    align-items: center; 
+}
+
+.form-group2{
+    display: flex;
+    align-items: center; 
+    flex-wrap: wrap;
+}
+
+input {
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: gray;
+    background : transparent;
+    margin : 0.5em;
+    width : 100%;
+    padding : 0 5px;
+}
+input:focus {
+    border-color: rgb(8, 91, 146);
+    border-width: 0 0 2px;
+    transition: 0.08s ease-in-out;
+}
+
+label  {
+    font-size: 25px;
+}
+
+select { 
+    background : transparent;
+    padding : 5px;
+}
+
+
+input[type="radio"]{
+    background-color: transparent;
+}
+
+input[type="radio"]:checked {
+    background-color : rgb(245, 86, 86);
+}
+
+.options {
+    font-size: 17px;
+}

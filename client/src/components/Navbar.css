@@ -1,0 +1,26 @@
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+}
+
+.navbar-dark .navbar-toggler-icon{
+    background-image: url('../images/hamburger.svg');
+}
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.navbar-dark .navbar-toggler{
+    border : none;
+}   
