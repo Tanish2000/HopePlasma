@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 
 const DB = process.env.DATABASE;
 
+console.log(DB)
+
 // Database Connection
-mongoose.connect(DB.toString(),{
+mongoose.connect(DB,{
     useNewUrlParser : true,
     useCreateIndex : true,
     useUnifiedTopology : true,
