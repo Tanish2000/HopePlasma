@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const DB = process.env.DATABASE;
 
-console.log(DB)
+console.log(DB.toString());
 
 // Database Connection
 mongoose.connect(DB,{
