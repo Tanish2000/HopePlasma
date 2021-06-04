@@ -10,22 +10,6 @@ const Donor = require('../model/donorSchema');
 const Patient = require('../model/patientSchema');
 
 
-
-//Get Request Routes
-router.get('/', (req, res) => {
-    res.send("Home Page");
-    // message("Vinayak");
-})
-
-router.get('/donor', (req, res) => {
-    res.send('Donor Registration');
-})
-
-router.get('/patient', (req, res) => {
-    res.send('Patient Registration');
-})
-
-
 //Post Request Routes
 
 //For Donors

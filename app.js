@@ -16,7 +16,7 @@ app.use(require('./Router/auth'));  //Making all the routes
 const PORT = process.env.PORT || 5000; // Port number
 
 
-if( process.env.NODE_ENV=="production")
+if( process.env.NODE_ENV == "production")
 {
     app.use(express.static("client/build"));    
     app.get("*" , (req,res)=> {
