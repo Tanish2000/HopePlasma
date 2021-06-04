@@ -17,7 +17,8 @@ router.post('/donor', (req, res) => { //For donor's registration
 
     const { ever_covid, name, email, mob, city, age, blood_group, gender, recoveryDate, weight, donatedPlasma,
         DiabetesORBP, HIVorHepetitis } = req.body;  //Destructuring Response Object
-
+        
+      
 
     //Validations
     if (!name || !email || !city || !age || !blood_group || !gender || !recoveryDate || !weight || !mob) //Form Validation
@@ -27,8 +28,7 @@ router.post('/donor', (req, res) => { //For donor's registration
     
     if (ever_covid=="false") {
         return res.json({ message: "🔴 Only Covid survivors can donate plasma!" });
-    }
-
+    }   
 
     if (donatedPlasma=="true" || DiabetesORBP=="true" || HIVorHepetitis=="true") {
         return res.json({ message: "🔴 Sorry, you can't donate plasma!" })
@@ -41,6 +41,14 @@ router.post('/donor', (req, res) => { //For donor's registration
     if (weight < 50) // Weight validation
     {
         return res.json({ message: "🔴 You are underweight for Plasma Donation" });
+    }
+
+    var recDate = new Date(recoveryDate);
+    var today = new Date();
+
+    if(recDate.getTime() > today.getTime())
+    {
+        return res.json({ message: "🔴 Enter a valid date of recovery." }); 
     }
 
     //Creating Donor document
