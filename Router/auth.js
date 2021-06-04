@@ -17,7 +17,8 @@ router.post('/donor', (req, res) => { //For donor's registration
 
     const { ever_covid, name, email, mob, city, age, blood_group, gender, recoveryDate, weight, donatedPlasma,
         DiabetesORBP, HIVorHepetitis } = req.body;  //Destructuring Response Object
-        
+       
+    
       
 
     //Validations
@@ -85,6 +86,8 @@ router.post('/patient', (req, res) => {  //For Patient's registration
     //Destructuring response object
     const { name, phone, email, age, bloodGroup, city, gender, hospitalName, doctorCaseSheet } = req.body;
 
+    Patient.countDocuments().then(res=> console.log(res)).catch(err => console.log(err));
+
     //Validations
     if (!name || !phone || !email || !age || !bloodGroup || !city || !gender || !hospitalName || !doctorCaseSheet) {
         return res.status(422).json({ message: "🛑 All fields are required." });
@@ -114,5 +117,27 @@ router.post('/patient', (req, res) => {  //For Patient's registration
     });
 
 });
+
+
+//GET requests
+//Number of registered donors
+router.get('/DonorNumber' , async(req,res) => {
+    try {
+        const data = await Donor.countDocuments();
+        return res.status(200).json({message : `${data}`}) 
+    } catch (error) {
+        return res.status(500).json({message : error.message});
+    }   
+})
+
+//Number of registered patients
+router.get('/PatientNumber' , async(req,res) => {
+    try {
+        const data = await Patient.countDocuments();
+        return res.status(200).json({message : `${data}`}) 
+    } catch (error) {
+        return res.status(500).json({message : error.message});
+    }   
+})
 
 module.exports = router;

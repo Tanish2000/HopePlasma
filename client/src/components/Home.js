@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Donation from '../images/front_image.png';
 import PlasmaDonation from '../images/blood-donation.svg';
@@ -23,18 +23,41 @@ const TEXTS = [
 
 const Home = () => {
 
-    const [index, setIndex] = React.useState(0);
+    const [index, setIndex] = useState(0);
+    const [numbers , setNumbers] = useState([]);
 
     useEffect(() => {
         AOS.init();   //Animate on scroll intialization
         AOS.refresh();
+
+        //Fetching number of donor from DB
+        fetch('/DonorNumber', {
+            method: 'GET'
+        }).then(res => {
+            res.json().then(data => {
+                setNumbers(numbers => [...numbers , data.message])
+            })
+        }).catch(error => {
+                console.log(error);
+        })
+
+        //Fetching number of patient from DB
+        fetch('/PatientNumber', {
+            method: 'GET'
+        }).then(res => {
+            res.json().then(data => {
+                setNumbers(numbers => [...numbers , data.message])
+            })
+        }).catch(error => {
+                console.log(error);
+        })
 
         const intervalId = setInterval(() =>
             setIndex(index => index + 1),
             2500 // every 2 seconds
         );
         return () => clearTimeout(intervalId);
-    }, []);
+    }, [numbers]);
 
     const styles = {
         donation: {
@@ -132,7 +155,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Donors</h5>
-                                    <p>23</p>
+                                    <p>{numbers[0]}</p>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +171,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Patients</h5>
-                                    <p>56</p>
+                                    <p>{numbers[1]}</p>
                                 </div>
                             </div>
                         </div>
