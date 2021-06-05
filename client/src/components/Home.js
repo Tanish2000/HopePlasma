@@ -31,33 +31,33 @@ const Home = () => {
         AOS.refresh();
 
         //Fetching number of donor from DB
-        fetch('/DonorNumber', {
-            method: 'GET'
-        }).then(res => {
-            res.json().then(data => {
-                setNumbers(numbers => [...numbers , data.message])
-            })
-        }).catch(error => {
-                console.log(error);
-        })
+        // fetch('/DonorNumber', {
+        //     method: 'GET'
+        // }).then(res => {
+        //     res.json().then(data => {
+        //         setNumbers(numbers => [...numbers , data.message])
+        //     })
+        // }).catch(error => {
+        //         console.log(error);
+        // })
 
-        //Fetching number of patient from DB
-        fetch('/PatientNumber', {
-            method: 'GET'
-        }).then(res => {
-            res.json().then(data => {
-                setNumbers(numbers => [...numbers , data.message])
-            })
-        }).catch(error => {
-                console.log(error);
-        })
+        // //Fetching number of patient from DB
+        // fetch('/PatientNumber', {
+        //     method: 'GET'
+        // }).then(res => {
+        //     res.json().then(data => {
+        //         setNumbers(numbers => [...numbers , data.message])
+        //     })
+        // }).catch(error => {
+        //         console.log(error);
+        // })
 
         const intervalId = setInterval(() =>
             setIndex(index => index + 1),
             2500 // every 2 seconds
         );
         return () => clearTimeout(intervalId);
-    }, [numbers]);
+    }, []);
 
     const styles = {
         donation: {
@@ -155,7 +155,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Donors</h5>
-                                    <p>{numbers[0]}</p>
+                                    <p>5</p>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Patients</h5>
-                                    <p>{numbers[1]}</p>
+                                    <p>10</p>
                                 </div>
                             </div>
                         </div>

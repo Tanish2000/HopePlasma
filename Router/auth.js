@@ -25,7 +25,12 @@ router.post('/donor', (req, res) => { //For donor's registration
         return res.status(422).json({ message: "🛑 All fields are required." });
     }
 
-    // if()
+    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if(email.test(mailformat) == false)
+    {
+        return res.json({ message : "🔴 Enter a valid email address."})
+    }
     
     if (ever_covid=="false") {
         return res.json({ message: "🔴 Only Covid survivors can donate plasma!" });
