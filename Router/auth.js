@@ -17,15 +17,15 @@ router.post('/donor', (req, res) => { //For donor's registration
 
     const { ever_covid, name, email, mob, city, age, blood_group, gender, recoveryDate, weight, donatedPlasma,
         DiabetesORBP, HIVorHepetitis } = req.body;  //Destructuring Response Object
-       
-    
-      
+
 
     //Validations
-    if (!name || !email || !city || !age || !blood_group || !gender || !recoveryDate || !weight || !mob) //Form Validation
+    if (!name || !email || !city || !age || !blood_group || !gender || !recoveryDate || !weight || !mob || ever_covid=="") //Form Validation
     {
         return res.status(422).json({ message: "🛑 All fields are required." });
     }
+
+    // if()
     
     if (ever_covid=="false") {
         return res.json({ message: "🔴 Only Covid survivors can donate plasma!" });
@@ -35,13 +35,19 @@ router.post('/donor', (req, res) => { //For donor's registration
         return res.json({ message: "🔴 Sorry, you can't donate plasma!" })
     }
 
-    if (age < 18) // Age validation 
+    if ( age < 18 || age > 65) // Age validation 
     {
-        return res.json({ message: "🔴 You are underage for Plasma Donation" });
+        return res.status(500).json({ message: "🔴 You are not in age criteria." });
     }
+    
     if (weight < 50) // Weight validation
     {
         return res.json({ message: "🔴 You are underweight for Plasma Donation" });
+    }
+
+    if(mob > 9999999999 || mob < 6000000000)
+    {
+        return res.json({ message : "🔴 Enter a valid mobile number."})
     }
 
     var recDate = new Date(recoveryDate);
@@ -86,12 +92,20 @@ router.post('/patient', (req, res) => {  //For Patient's registration
     //Destructuring response object
     const { name, phone, email, age, bloodGroup, city, gender, hospitalName, doctorCaseSheet } = req.body;
 
-    Patient.countDocuments().then(res=> console.log(res)).catch(err => console.log(err));
-
     //Validations
-    if (!name || !phone || !email || !age || !bloodGroup || !city || !gender || !hospitalName || !doctorCaseSheet) {
+    if (!name || !phone || !email || !age || !bloodGroup || !city || !gender || !hospitalName || doctorCaseSheet=="") {
         return res.status(422).json({ message: "🛑 All fields are required." });
     }
+
+    if(!doctorCaseSheet)
+    {
+        return res.json({ message : "🔴 Doctor case sheet required."})
+    }
+    if(phone > 9999999999 || phone < 6000000000)
+    {
+        return res.json({ message : "🔴 Enter a valid mobile number."})
+    }
+
 
     //Creating patient record
     Patient.findOne({ email: email }).then((patientExist) => {

@@ -140,10 +140,10 @@ const Patient = () => {
                                         <i className="zmdi zmdi-phone-in-talk"></i>
                                     </label>
                                     <input
-                                        type="number"
+                                        type="tel"
                                         value={patient.phone}
                                         onChange={handleInputs}
-                                        maxLength="10" name="phone" placeholder="Mobile No. (India Only)" pattern="[0-9]{10}" required />
+                                        maxLength="10" name="phone" placeholder="Mobile No. (India Only)" required />
                                 </div>
                                 <div className="form-group mx-md-5 m-2" >
                                     <label htmlFor="city">

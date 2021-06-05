@@ -172,12 +172,9 @@ const Donor = () => {
                                         <i className="zmdi zmdi-phone-in-talk"></i>
                                     </label>
                                     <input 
-                                        type="number"
-                                        min="6000000000"
-                                        max="9999999999"
+                                        type="tel"
                                         name="mob"
-                                        placeholder="Mobile No. (India Only)"
-                                        pattern="[0-9]{10}"
+                                        placeholder="Mobile No. (+91 not required)"
                                         maxLength="10"
                                         value={donor.mob}
                                         onChange={handleInputs}
