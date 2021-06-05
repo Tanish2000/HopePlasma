@@ -24,40 +24,36 @@ const TEXTS = [
 const Home = () => {
 
     const [index, setIndex] = useState(0);
-    const [numbers , setNumbers] = useState([]);
+    const [userCount , setUserCount] = useState({});
 
     useEffect(() => {
         AOS.init();   //Animate on scroll intialization
         AOS.refresh();
 
-        //Fetching number of donor from DB
-        // fetch('/DonorNumber', {
-        //     method: 'GET'
-        // }).then(res => {
-        //     res.json().then(data => {
-        //         setNumbers(numbers => [...numbers , data.message])
-        //     })
-        // }).catch(error => {
-        //         console.log(error);
-        // })
-
-        // //Fetching number of patient from DB
-        // fetch('/PatientNumber', {
-        //     method: 'GET'
-        // }).then(res => {
-        //     res.json().then(data => {
-        //         setNumbers(numbers => [...numbers , data.message])
-        //     })
-        // }).catch(error => {
-        //         console.log(error);
-        // })
-
-        const intervalId = setInterval(() =>
-            setIndex(index => index + 1),
+        const intervalId = setInterval(()    =>
+            setIndex(index => index + 1) ,
             2500 // every 2 seconds
         );
+
+        async function getCount(){
+            const response =  await fetch('/getNumbers' , {
+                method : 'GET'
+            });
+            const data = await response.json();
+            setUserCount(data);
+            console.log(userCount)
+        }
+
+        getCount();
         return () => clearTimeout(intervalId);
-    }, []);
+    },[]);
+
+
+    
+
+    
+
+    
 
     const styles = {
         donation: {
@@ -155,7 +151,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Donors</h5>
-                                    <p>5</p>
+                                    <p>{userCount.donorCount ? userCount.donorCount : "fetching..."}</p>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +167,7 @@ const Home = () => {
                                 </div>
                                 <div className="col-md-6 col-12 mt-3">
                                     <h5>Total Registered Patients</h5>
-                                    <p>10</p>
+                                    <p>{userCount.patientCount ? userCount.patientCount : "fetching..."}</p>
                                 </div>
                             </div>
                         </div>

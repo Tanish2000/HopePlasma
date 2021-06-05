@@ -25,12 +25,14 @@ router.post('/donor', (req, res) => { //For donor's registration
         return res.status(422).json({ message: "🛑 All fields are required." });
     }
 
-    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    // var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    if(email.test(mailformat) == false)
-    {
-        return res.json({ message : "🔴 Enter a valid email address."})
-    }
+    // var tests = "chouhantanish@gmail.com";
+
+    // if(tests.test(mailformat) == false)
+    // {
+    //     return res.json({ message : "🔴 Enter a valid email address."})
+    // }
     
     if (ever_covid=="false") {
         return res.json({ message: "🔴 Only Covid survivors can donate plasma!" });
@@ -54,6 +56,12 @@ router.post('/donor', (req, res) => { //For donor's registration
     {
         return res.json({ message : "🔴 Enter a valid mobile number."})
     }
+
+    var validEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+      
+    if (!email.match(validEmail)) {
+        return res.json({ message : "🔴 Enter a valid email address."})
+    } 
 
     var recDate = new Date(recoveryDate);
     var today = new Date();
@@ -110,6 +118,11 @@ router.post('/patient', (req, res) => {  //For Patient's registration
     {
         return res.json({ message : "🔴 Enter a valid mobile number."})
     }
+    var validEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+      
+    if (!email.match(validEmail)) {
+        return res.json({ message : "🔴 Enter a valid email address."})
+    } 
 
 
     //Creating patient record
@@ -140,20 +153,11 @@ router.post('/patient', (req, res) => {  //For Patient's registration
 
 //GET requests
 //Number of registered donors
-router.get('/DonorNumber' , async(req,res) => {
+router.get('/getNumbers' , async(req,res) => {
     try {
-        const data = await Donor.countDocuments();
-        return res.status(200).json({message : `${data}`}) 
-    } catch (error) {
-        return res.status(500).json({message : error.message});
-    }   
-})
-
-//Number of registered patients
-router.get('/PatientNumber' , async(req,res) => {
-    try {
-        const data = await Patient.countDocuments();
-        return res.status(200).json({message : `${data}`}) 
+        const donorCount = await Donor.countDocuments();
+        const patientCount = await Patient.countDocuments();
+        return res.status(200).json({donorCount : `${donorCount}` , patientCount : `${patientCount}`}) 
     } catch (error) {
         return res.status(500).json({message : error.message});
     }   
