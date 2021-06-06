@@ -43,17 +43,12 @@ const Home = () => {
             setUserCount(data);
             console.log(userCount)
         }
-
         getCount();
-        return () => clearTimeout(intervalId);
-    },[]);
 
-
-    
-
-    
-
-    
+        return () =>{
+            clearTimeout(intervalId);           
+        } 
+    },[]);   
 
     const styles = {
         donation: {
