@@ -41,7 +41,6 @@ const Home = () => {
             });
             const data = await response.json();
             setUserCount(data);
-            console.log(userCount)
         }
         getCount();
 

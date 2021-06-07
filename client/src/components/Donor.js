@@ -38,10 +38,18 @@ const Donor = () => {
 
         e.preventDefault();
 
+        const mapped = false;
+        const status = true;
+
         try {
 
-            const { ever_covid,name,email,mob,city,age,blood_group,gender,recoveryDate,weight,donatedPlasma,
+            var { ever_covid,name,email,mob,city,age,blood_group,gender,recoveryDate,weight,donatedPlasma,
             DiabetesORBP,HIVorHepetitis } = donor;
+            
+            name = name.trim().toUpperCase();
+            city = city.trim().toUpperCase();
+            gender = gender.trim().toUpperCase();
+            email = email.trim();
 
             const res = await fetch('/donor', {
                 method: 'POST',
@@ -50,7 +58,7 @@ const Donor = () => {
                 },
                 body: JSON.stringify({
                     ever_covid,name,email,mob,city,age,blood_group,gender,recoveryDate,weight,donatedPlasma,
-                    DiabetesORBP,HIVorHepetitis
+                    DiabetesORBP,HIVorHepetitis,status,mapped
                 })
             });
 

@@ -53,6 +53,14 @@ const donorSchema =  new mongoose.Schema({
     donatedPlasma : {
         type : Boolean,
         required: true
+    },
+    mapped : {
+        type : Boolean,
+        required : true
+    },
+    status : {
+        type : Boolean,
+        required : true
     }
 });
 

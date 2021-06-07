@@ -40,7 +40,13 @@ const Patient = () => {
 
         try {
 
-            const { name, email, phone, city, age, hospitalName, bloodGroup, gender, doctorCaseSheet } = patient;
+            var { name, email, phone, city, age, hospitalName, bloodGroup, gender, doctorCaseSheet } = patient;
+
+            name = name.trim().toUpperCase();
+            city = city.trim().toUpperCase();
+            gender = gender.trim().toUpperCase();
+            email = email.trim();
+            hospitalName = hospitalName.trim().toUpperCase();
 
             const res = await fetch('/patient', {
                 method: 'POST',
